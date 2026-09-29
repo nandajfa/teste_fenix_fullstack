@@ -1,0 +1,1 @@
+CREATE DATABASE fenix_test OWNER fenix;
