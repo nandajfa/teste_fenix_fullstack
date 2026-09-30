@@ -65,7 +65,10 @@
         ],
         "pre-package-uninstall": [
             "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
-        ]
+        ],
+        "lint": "pint",
+        "lint:check": "pint --test",
+        "test:coverage": "@php artisan test --coverage --min=80"
     },
     "extra": {
         "laravel": {
