@@ -23,6 +23,7 @@ class AttemptResource extends JsonResource
             'exam' => $this->whenLoaded('exam', fn () => [
                 'id' => $this->exam->id,
                 'title' => $this->exam->title,
+                'is_deleted' => $this->exam->trashed(),
             ]),
             'correct_count' => $this->correct_count,
             'total_questions' => $this->total_questions,
