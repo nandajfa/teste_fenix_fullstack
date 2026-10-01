@@ -118,3 +118,48 @@ export interface ExamPayload {
     alternatives: { text: string; is_correct: boolean }[]
   }[]
 }
+
+export interface DashboardAttempt {
+  id: number
+  student: { id: number; name: string }
+  exam: { id: number; title: string }
+  score: number
+  percentage: number
+}
+
+export interface DashboardSummary {
+  overall: {
+    attempts_count: number
+    average_percentage: number | null
+    best_percentage: number | null
+    worst_percentage: number | null
+  }
+  best_attempt: DashboardAttempt | null
+  worst_attempt: DashboardAttempt | null
+  exams: {
+    id: number
+    title: string
+    attempts_count: number
+    average_percentage: number | null
+    best_percentage: number | null
+    worst_percentage: number | null
+  }[]
+  students: {
+    id: number
+    name: string
+    attempts_count: number
+    average_percentage: number | null
+  }[]
+}
+
+export interface RankingEntry {
+  position: number
+  attempt_id: number
+  student: { id: number; name: string }
+  exam: { id: number; title: string }
+  score: number
+  percentage: number
+  correct_count: number
+  total_questions: number
+  submitted_at: string
+}
