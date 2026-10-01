@@ -82,7 +82,30 @@ class DashboardService
             ->orderBy('name')
             ->get();
 
-        return compact('overall', 'best', 'worst', 'exams', 'students');
+        return [
+            'overall' => [
+                'attempts_count' => (int) $overall->attempts_count,
+                'average_percentage' => $this->round($overall->average_percentage),
+                'best_percentage' => $this->round($overall->best_percentage),
+                'worst_percentage' => $this->round($overall->worst_percentage),
+            ],
+            'best_attempt' => $best ? $this->attemptData($best) : null,
+            'worst_attempt' => $worst ? $this->attemptData($worst) : null,
+            'exams' => $exams->map(fn (Exam $exam) => [
+                'id' => $exam->id,
+                'title' => $exam->title,
+                'attempts_count' => $exam->attempts_count,
+                'average_percentage' => $this->round($exam->attempts_avg_percentage),
+                'best_percentage' => $this->round($exam->attempts_max_percentage),
+                'worst_percentage' => $this->round($exam->attempts_min_percentage),
+            ])->all(),
+            'students' => $students->map(fn (Student $student) => [
+                'id' => $student->id,
+                'name' => $student->name,
+                'attempts_count' => $student->attempts_count,
+                'average_percentage' => $this->round($student->attempts_avg_percentage),
+            ])->all(),
+        ];
     }
 
     private function buildingRanking(?int $examId, int $page, int $perPage): array
@@ -101,6 +124,35 @@ class DashboardService
             ->forPage($page, $perPage)
             ->get();
 
-        return ['items' => $items, 'total' => $total];
+        return [
+            'items' => $items->map(fn (Attempt $attempt) => [
+                'position' => (int) $attempt->position,
+                'attempt_id' => $attempt->id,
+                'student' => ['id' => $attempt->student->id, 'name' => $attempt->student->name],
+                'exam' => ['id' => $attempt->exam->id, 'title' => $attempt->exam->title],
+                'score' => (float) $attempt->score,
+                'percentage' => (float) $attempt->percentage,
+                'correct_count' => $attempt->correct_count,
+                'total_questions' => $attempt->total_questions,
+                'submitted_at' => $attempt->submitted_at?->toIso8601String(),
+            ])->all(),
+            'total' => $total,
+        ];
+    }
+
+    private function attemptData(Attempt $attempt): array
+    {
+        return [
+            'id' => $attempt->id,
+            'student' => ['id' => $attempt->student->id, 'name' => $attempt->student->name],
+            'exam' => ['id' => $attempt->exam->id, 'title' => $attempt->exam->title],
+            'score' => (float) $attempt->score,
+            'percentage' => (float) $attempt->percentage,
+        ];
+    }
+
+    private function round(mixed $value): ?float
+    {
+        return $value === null ? null : round((float) $value, 2);
     }
 }
