@@ -128,7 +128,7 @@ frontend/src/
 
 ## Banco de dados
 
-![Diagrama do banco de dados](docs/database.jpg)
+![Diagrama do banco de dados](docs/db.jpg)
 
 | Regra | Como é garantida |
 | --- | --- |
