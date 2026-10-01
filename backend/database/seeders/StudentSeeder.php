@@ -7,17 +7,17 @@ use Illuminate\Database\Seeder;
 
 class StudentSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $students = [
-            ['name' => 'Ana Souza', 'email' => 'ana@fenix.test'],
-            ['name' => 'Bruno Lima', 'email' => 'bruno@fenix.test'],
-            ['name' => 'Carla Mendes', 'email' => 'carla@fenix.test'],
-            ['name' => 'Diego Rocha', 'email' => 'diego@fenix.test'],
-            ['name' => 'Elisa Castro', 'email' => 'elisa@fenix.test'],
+            ['name' => 'Mariana Costa', 'email' => 'mariana.costa@fenix.test'],
+            ['name' => 'Lucas Ferreira', 'email' => 'lucas.ferreira@fenix.test'],
+            ['name' => 'Beatriz Almeida', 'email' => 'beatriz.almeida@fenix.test'],
+            ['name' => 'Rafael Nogueira', 'email' => 'rafael.nogueira@fenix.test'],
+            ['name' => 'Ana Júlia Martins', 'email' => 'julia.martins@fenix.test'],
+            ['name' => 'Thiago Ribeiro', 'email' => 'thiago.ribeiro@fenix.test'],
+            ['name' => 'Larissa Carvalho Mendes', 'email' => 'larissa.carvalho@fenix.test'],
+            ['name' => 'Gabriel Moreira da Silva', 'email' => 'gabriel.moreira@fenix.test'],
         ];
 
         foreach ($students as $student) {

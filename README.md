@@ -27,7 +27,7 @@ Se alguma porta já estiver em uso na sua máquina (por exemplo, um PostgreSQL l
 
 ### Dados de exemplo
 
-Os seeders criam 5 alunos, 2 provas e tentativas já corrigidas, para o dashboard e o histórico abrirem preenchidos. A aluna **Ana Souza** fica com uma prova pendente, para testar o fluxo de responder.
+Os seeders criam 8 alunos, 3 provas e tentativas já corrigidas, para o dashboard e o histórico abrirem preenchidos. A aluna **Mariana Costa** fica com uma prova pendente, para testar o fluxo de responder.
 
 Para recomeçar do zero:
 
