@@ -84,7 +84,8 @@ class ExamApiTest extends TestCase
         $this->getJson("/api/exams/{$exam->id}")
             ->assertOk()
             ->assertJsonCount(2, 'data.questions')
-            ->assertJsonCount(4, 'data.questions.0.alternatives');
+            ->assertJsonCount(4, 'data.questions.0.alternatives')
+            ->assertJsonPath('data.attempts_count', 0);
     }
 
     public function test_returns_404_for_missing_exam(): void
