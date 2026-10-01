@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AttemptController;
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\ExamController;
 use App\Http\Controllers\Api\StudentController;
 use App\Http\Controllers\Api\StudentExamController;
@@ -19,3 +20,6 @@ Route::get('attempts/{attempt}', [AttemptController::class, 'show']);
 Route::get('students', [StudentController::class, 'index']);
 Route::get('students/{student}/exams', [StudentExamController::class, 'index']);
 Route::get('students/{student}/attempts', [AttemptController::class, 'index']);
+
+Route::get('dashboard', [DashboardController::class, 'index']);
+Route::get('dashboard/ranking', [DashboardController::class, 'ranking']);

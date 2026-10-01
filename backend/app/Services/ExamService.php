@@ -10,9 +10,10 @@ use Illuminate\Support\Facades\DB;
 
 class ExamService
 {
-    /**
-     * Create a new class instance.
-     */
+    public function __construct(
+        private readonly DashboardService $dashboard,
+    ) {}
+
     public function paginate(int $perPage = 15): LengthAwarePaginator
     {
         return Exam::query()
@@ -28,12 +29,16 @@ class ExamService
 
     public function create(array $data): Exam
     {
-        return DB::transaction(function () use ($data) {
+        $exam = DB::transaction(function () use ($data) {
             $exam = Exam::create(Arr::only($data, ['title', 'description']));
             $this->createQuestions($exam, $data['questions']);
 
-            return $this->loadDetails($exam);
+            return $exam;
         });
+
+        $this->dashboard->invalidate();
+
+        return $this->loadDetails($exam);
     }
 
     public function update(Exam $exam, array $data): Exam
@@ -44,21 +49,24 @@ class ExamService
             throw new ExamHasAttemptsException;
         }
 
-        return DB::transaction(function () use ($exam, $data, $changesQuestions) {
+        DB::transaction(function () use ($exam, $data, $changesQuestions) {
             $exam->update(Arr::only($data, ['title', 'description']));
 
             if ($changesQuestions) {
                 $exam->questions()->delete();
                 $this->createQuestions($exam, $data['questions']);
             }
-
-            return $this->loadDetails($exam->refresh());
         });
+
+        $this->dashboard->invalidate();
+
+        return $this->loadDetails($exam->refresh());
     }
 
     public function delete(Exam $exam): void
     {
         $exam->delete();
+        $this->dashboard->invalidate();
     }
 
     private function createQuestions(Exam $exam, array $questions): void
