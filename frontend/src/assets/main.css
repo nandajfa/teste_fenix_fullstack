@@ -132,3 +132,30 @@ a { color: var(--color-blue-light); }
 .answer dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; margin: 0; }
 .answer dt { color: var(--color-muted); }
 .answer dd { margin: 0; font-weight: 600; }
+
+/* Cabeçalho de página com ação */
+.page-header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space);
+  margin-bottom: 24px; }
+.page-header h1 { margin: 0; }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.pagination { display: flex; align-items: center; justify-content: center; gap: var(--space); margin-top: 24px; }
+.alert-info { background: var(--color-blue-soft); color: var(--color-blue); border: 1px solid #b9d6e3; }
+
+/* Formulário */
+.form { display: grid; gap: 20px; }
+.field { display: grid; gap: 6px; }
+.field label, .field-label { font-weight: 700; }
+.input { width: 100%; padding: 10px 12px; font: inherit; color: var(--color-text); background: var(--color-surface);
+  border: 1px solid var(--color-border); border-radius: var(--radius); }
+.input:focus { outline: none; border-color: var(--color-blue-light); box-shadow: 0 0 0 3px var(--color-blue-soft); }
+.input.has-error { border-color: var(--color-danger); }
+textarea.input { min-height: 80px; resize: vertical; }
+.field-error { color: var(--color-danger); font-size: 0.9rem; }
+.field-hint { color: var(--color-muted); font-size: 0.9rem; }
+.question-form { display: grid; gap: 14px; }
+.question-form fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 14px; min-width: 0; }
+.question-grid { display: grid; grid-template-columns: 1fr 120px; gap: 12px; }
+.alternative-row { display: grid; grid-template-columns: auto auto 1fr auto; align-items: center; gap: 10px; }
+.alternative-row input[type='radio'] { width: 18px; height: 18px; accent-color: var(--color-success); }
+.btn-small { padding: 6px 10px; font-size: 0.9rem; }
+.btn-ghost { border-color: transparent; background: transparent; }

@@ -19,6 +19,7 @@ class ExamResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'questions_count' => $this->whenCounted('questions'),
+            'attempts_count' => $this->whenCounted('attempts'),
             'questions' => QuestionResource::collection($this->whenLoaded('questions')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

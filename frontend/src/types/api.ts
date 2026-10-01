@@ -73,3 +73,48 @@ export interface Attempt {
   submitted_at: string
   answers?: AnswerResult[]
 }
+
+export interface Paginated<T> {
+  data: T[]
+  meta: {
+    current_page: number
+    last_page: number
+    per_page: number
+    total: number
+  }
+}
+
+export interface Alternative {
+  id: number
+  text: string
+  is_correct: boolean
+  position: number
+}
+
+export interface Question {
+  id: number
+  statement: string
+  points: number
+  position: number
+  alternatives: Alternative[]
+}
+
+export interface Exam {
+  id: number
+  title: string
+  description: string | null
+  questions_count?: number
+  attempts_count?: number
+  questions?: Question[]
+  created_at: string
+}
+
+export interface ExamPayload {
+  title: string
+  description: string | null
+  questions?: {
+    statement: string
+    points: number
+    alternatives: { text: string; is_correct: boolean }[]
+  }[]
+}

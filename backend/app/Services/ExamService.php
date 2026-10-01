@@ -17,14 +17,14 @@ class ExamService
     public function paginate(int $perPage = 15): LengthAwarePaginator
     {
         return Exam::query()
-            ->withCount('questions')
+            ->withCount('questions', 'attempts')
             ->latest()
             ->paginate($perPage);
     }
 
     public function loadDetails(Exam $exam): Exam
     {
-        return $exam->load('questions.alternatives');
+        return $exam->load('questions.alternatives')->loadCount('attempts');
     }
 
     public function create(array $data): Exam
