@@ -59,6 +59,8 @@ services:
       image: node:22-alpine
       container_name: fenix_frontend
       working_dir: /app
+      environment:
+        VITE_API_PROXY_TARGET: http://app:8000
       volumes:
         - ./frontend:/app
         - /app/node_modules
