@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\DB;
 class ExamService
 {
     public function __construct(
-    private readonly DashboardService $dashboard,
-) {}
+        private readonly DashboardService $dashboard,
+    ) {}
 
     public function paginate(int $perPage = 15): LengthAwarePaginator
     {

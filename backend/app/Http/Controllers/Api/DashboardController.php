@@ -13,7 +13,6 @@ class DashboardController extends Controller
 {
     public function __construct(private readonly DashboardService $dashboard) {}
 
-
     public function index(): DashboardResource
     {
         return new DashboardResource($this->dashboard->summary());

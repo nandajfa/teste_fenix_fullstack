@@ -58,31 +58,31 @@ class DashboardService
             ->toBase()
             ->first();
 
-            $best = $this->activeAttempts()->with(['student', 'exam'])
+        $best = $this->activeAttempts()->with(['student', 'exam'])
             ->orderByDesc('percentage')->orderBy('score')->orderBy('submitted_at')
             ->first();
 
-            $worst = $this->activeAttempts()->with(['student', 'exam'])
+        $worst = $this->activeAttempts()->with(['student', 'exam'])
             ->orderBy('percentage')->orderBy('score')->orderBy('submitted_at')
             ->first();
 
-            $exams = Exam::query()
-                ->withCount('attempts')
-                ->withAvg('attempts', 'percentage')
-                ->withMax('attempts', 'percentage')
-                ->withMin('attempts', 'percentage')
-                ->orderBy('title')
-                ->get();
+        $exams = Exam::query()
+            ->withCount('attempts')
+            ->withAvg('attempts', 'percentage')
+            ->withMax('attempts', 'percentage')
+            ->withMin('attempts', 'percentage')
+            ->orderBy('title')
+            ->get();
 
-            $onlyActive = fn ($query) => $query->whereIn('exam_id', Exam::query()->select('id'));
+        $onlyActive = fn ($query) => $query->whereIn('exam_id', Exam::query()->select('id'));
 
-            $students = Student::query()
-                ->withCount(['attempts' => $onlyActive])
-                ->withAvg(['attempts' => $onlyActive], 'percentage')
-                ->orderBy('name')
-                ->get();
+        $students = Student::query()
+            ->withCount(['attempts' => $onlyActive])
+            ->withAvg(['attempts' => $onlyActive], 'percentage')
+            ->orderBy('name')
+            ->get();
 
-            return compact('overall', 'best', 'worst', 'exams', 'students');
+        return compact('overall', 'best', 'worst', 'exams', 'students');
     }
 
     private function buildingRanking(?int $examId, int $page, int $perPage): array

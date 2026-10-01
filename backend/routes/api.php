@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api\AttemptController;
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\ExamController;
 use App\Http\Controllers\Api\StudentController;
 use App\Http\Controllers\Api\StudentExamController;
-use App\Http\Controllers\Api\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 // Rotas da API. O Laravel adiciona o prefixo /api automaticamente.

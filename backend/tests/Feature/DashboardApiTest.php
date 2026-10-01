@@ -116,7 +116,6 @@ class DashboardApiTest extends TestCase
 
         $this->getJson('/api/dashboard')->assertJsonPath('data.overall.attempts_count', 1);
 
-
         $this->attempt($exam, 50);
         $this->getJson('/api/dashboard')->assertJsonPath('data.overall.attempts_count', 1);
 
