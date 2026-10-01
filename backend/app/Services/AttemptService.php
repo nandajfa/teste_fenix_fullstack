@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\DB;
 
 class AttemptService
 {
-    public function __construct(private readonly GradingService $grading) {}
+    public function __construct(
+        private readonly GradingService $grading,
+        private readonly DashboardService $dashboard,
+    ) {}
 
     /**
      * @param  array<int, array{question_id: int, alternative_id?: int|null}>  $answers
@@ -29,7 +32,7 @@ class AttemptService
         $result = $this->grading->grade($exam->questions()->with('alternatives')->get(), $chosen);
 
         try {
-            return DB::transaction(function () use ($student, $exam, $result) {
+            $attempt = DB::transaction(function () use ($student, $exam, $result) {
                 $attempt = Attempt::create([
                     'student_id' => $student->id,
                     'exam_id' => $exam->id,
@@ -42,11 +45,15 @@ class AttemptService
 
                 $attempt->answers()->createMany($result->answers);
 
-                return $this->loadResult($attempt);
+                return $attempt;
             });
         } catch (UniqueConstraintViolationException) {
             throw new AttemptAlreadyExistsException;
         }
+
+        $this->dashboard->invalidate();
+
+        return $this->loadResult($attempt);
     }
 
     public function loadResult(Attempt $attempt): Attempt

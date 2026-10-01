@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AttemptController;
 use App\Http\Controllers\Api\ExamController;
 use App\Http\Controllers\Api\StudentController;
 use App\Http\Controllers\Api\StudentExamController;
+use App\Http\Controllers\Api\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 // Rotas da API. O Laravel adiciona o prefixo /api automaticamente.
@@ -19,3 +20,6 @@ Route::get('attempts/{attempt}', [AttemptController::class, 'show']);
 Route::get('students', [StudentController::class, 'index']);
 Route::get('students/{student}/exams', [StudentExamController::class, 'index']);
 Route::get('students/{student}/attempts', [AttemptController::class, 'index']);
+
+Route::get('dashboard', [DashboardController::class, 'index']);
+Route::get('dashboard/ranking', [DashboardController::class, 'ranking']);
