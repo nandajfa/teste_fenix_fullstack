@@ -9,10 +9,15 @@ use App\Models\Attempt;
 use App\Models\Exam;
 use App\Models\Student;
 use App\Services\AttemptService;
+use App\Services\StudentService;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class AttemptController extends Controller
 {
-    public function __construct(private readonly AttemptService $attemptService) {}
+    public function __construct(
+        private readonly AttemptService $attemptService,
+        private readonly StudentService $studentService
+    ) {}
 
     public function store(SubmitAttemptRequest $request, Student $student, Exam $exam): AttemptResource
     {
@@ -24,5 +29,10 @@ class AttemptController extends Controller
     public function show(Attempt $attempt): AttemptResource
     {
         return new AttemptResource($this->attemptService->loadResult($attempt));
+    }
+
+    public function index(Student $student): AnonymousResourceCollection
+    {
+        return AttemptResource::collection($this->studentService->attemptHistory($student));
     }
 }
