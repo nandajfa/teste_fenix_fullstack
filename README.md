@@ -20,7 +20,7 @@ Na primeira subida, o container do backend instala as dependências, cria o `.en
 | Serviço | Endereço |
 | --- | --- |
 | Frontend | http://localhost:5173 |
-| API | http://localhost:8000/api |
+| API | http://localhost:8000/ |
 | Documentação da API (OpenAPI) | http://localhost:8000/docs/api |
 
 Se alguma porta já estiver em uso na sua máquina (por exemplo, um PostgreSQL local na 5432), altere apenas o número da esquerda em `ports` no `docker-compose.yml`.
